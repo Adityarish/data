@@ -1,0 +1,52 @@
+/ program 12 :Travelling Saleman problem
+// main function : take city, cost matrix, call tsp(1);
+// helper function tsp(v): j, k, min = 999, mark the visited vertex and print v and then if count == city -1 do add minCost += cost[v][1] ,print 1 and minCost and return... NOw for loop over j = 1->city check !visited[j] && cost[v][j] != 0 && cost[v][j] < min then      min = cost[v][j] and k = j ,outside function minCost += cost[v][k], count++ , tsp(k)
+
+#include<stdio.h>
+
+int visited[10], cost[10][10];
+int count ,city, minCost;
+
+void tsp(int v){
+    int j, k, min = 999;
+    visited[v] = 1;
+    printf("%d",v);
+    if(count == city-1){
+        minCost += cost[v][1];
+        printf("1\n");
+        printf("Approximate minimum cost is %d\n", minCost);
+        return;
+    }
+    for(int j = 1;j<=city;j++){
+        if(!visited[j] && cost[v][j] != 0 && cost[v][j] < min){
+            min = cost[v][j];
+            k = j;
+        }
+    }
+    
+    minCost += cost[v][k];
+    count++;
+    tsp(k);
+}
+
+int main(){
+   printf("Enter the number of Cities: ");
+   scanf("%d", &city);
+   printf("Enter the cost matrix:\n");
+   for(int i = 1;i<=city;i++){
+       for(int j = 1;j<=city;j++){
+           scanf("%d", &cost[i][j]);
+       }
+   }
+   printf("\n");
+    for(int i = 1;i<=city;i++){
+       for(int j = 1;j<=city;j++){
+           printf("%d ", cost[i][j]);
+       }
+       printf("\n");
+   }
+    
+    printf("\nThe approximate path is: \n");
+    tsp(1);
+    return 0;
+}
