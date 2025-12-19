@@ -13,6 +13,7 @@ int safe(int row, int col){
     }
     return 1;
 }
+
 void printSol(){
     for(int row = 0;row<n;row++){
         for(int col = 0;col<n;col++){
@@ -23,6 +24,7 @@ void printSol(){
     }
     printf("\n");
 }
+
 void solve(int row){ // here it reach to final row 
     if(row == n){
         printSol();
