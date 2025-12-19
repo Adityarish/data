@@ -1,0 +1,62 @@
+// Program 8: Dijiktra Algorithm
+// steps : Main function : take n,src,cost matrix if 0->999 then dij(src) then for loop i=1->n print(s, i, dist[i]) 
+// dij(src) -> min , u, for i=1->n to set dist as first row i.e. dist[i] = cost[src][i], visited[i] = 0; 
+// for dist[src] = 0, visited[src] = 1; while ne-> n  then min =999  for loop i=1->n check if(dist[i] < min && !visited[i]) min=dist[i], u = i; 
+// after for loop visited[u] = 1;for loop to update the distance i=1->n if (!visited[i] && dist[u] + cost[u][i] < dist[i]) dist[i] = dist[u]+cost[s][i]; then increase ne++;
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int cost[10][10], visited[10], dist[10];
+int n, ne = 1;
+int s; // s= source
+
+void dijkstra(int source){
+    int min , u;
+    for(int i = 1;i<=n;i++){
+        dist[i] = cost[s][i];
+        visited[i] = 0; // initialize with 0
+    }
+    dist[s] = 0;
+    visited[s] = 1;
+    while(ne < n){
+        min = 999;
+        for(int i = 1;i<=n;i++){
+            if(dist[i] < min && !visited[i]){
+                min = dist[i];
+                u = i;
+            }
+        }
+        visited[u] = 1;
+        for(int i = 1;i<=n;i++){
+            if(!visited[i] && dist[u] + cost[u][i] < dist[i])
+                dist[i] = dist[u] + cost[u][i];
+        }
+        ne++;
+    }
+}
+
+
+
+int main(){
+    printf("Enter the number of vertices: \n");
+    scanf("%d",&n);
+    printf("Enter the cost adjacency matrix:\n");
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            scanf("%d", &cost[i][j]);
+            if (cost[i][j] == 0)
+                cost[i][j] = 999;
+        }
+    }
+    printf("Enter the source vertex: \n");
+    scanf("%d",&s);
+    
+    dijkstra(s);
+    printf("Shortest path from source %d:\n", s);
+    for(int i = 1;i<=n;i++){
+        printf("%d -> %d = %d\n", s, i, dist[i]);
+    }
+    return 0;
+}
