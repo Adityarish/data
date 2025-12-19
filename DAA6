@@ -1,0 +1,51 @@
+// Program 6: Prims Algorithm
+// steps : Global variable cost[][], visited[], int n, ne = 1, minCost; 
+// Main function : min , a, b , u, v, take n, and cost matrix -> if i =cost matrix == 0 then cost matrix = 999, 
+// Logic : visited[1] = 1 then while loop ne <  n and min = 999 , now a for loop i = 1->n  visited[i] != 0 for loop j = 1->n check cost[i][j] < min if yes then min = cost[i][j] and a = u = i, b = v = j 
+// after for loop check if(visited[u] == 0 || visited[v] == 0) printf(ne++, a, b, min) , minCost += min, visited[v] = 1 now cost[u][v] = cost[v][u] = 999 print minCost
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int cost[10][10], visited[10];
+int n, ne = 1; // ne is no. of edges
+int minCost = 0;
+
+void main(){
+    int min, a, b, u, v;
+    printf("Enter the no of vertices :\n");
+    scanf("%d",&n);
+    
+    printf("Enter the adjaceny matrix:\n");
+    for(int i = 1;i<=n;i++){
+        for(int j = 1;j<=n;j++){
+            scanf("%d",&cost[i][j]);
+            if(cost[i][j] == 0) cost[i][j] = 999;
+        }
+    }
+    
+    visited[1] = 1;
+    printf("The edges of minimum cost of Spanning tree : \n");
+    
+    while(ne <n){
+        min = 999;
+        for(int i = 1;i<=n;i++){
+            if(visited[i] != 0){
+                for(int j = 1;j<=n;j++){
+                    if(cost[i][j] < min){
+                        min = cost[i][j];
+                        a = u = i;
+                        b = v = j;
+                    }
+                }
+            }
+        }
+        if(visited[u] == 0 || visited[v] == 0){
+            printf("%d edge (%d,%d) = %d\n", ne++, a, b, min);
+            minCost += min;
+            visited[v] = 1;
+        }
+        cost[u][v] = cost[v][u] = 999;
+    }
+    printf("Minium Cost = %d\n", minCost);
+}
