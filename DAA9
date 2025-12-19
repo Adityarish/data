@@ -1,0 +1,46 @@
+// N-Queens Problem : 09
+// find safe(row, col) , printSol(), solve(int row) , int main()
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int n;
+int board[20];
+
+int safe(int row, int col){
+    for(int r = 0;r < row; r++){
+    if(board[r] == col || abs(board[r]-col) == abs(r - row)) return 0;
+    }
+    return 1;
+}
+void printSol(){
+    for(int row = 0;row<n;row++){
+        for(int col = 0;col<n;col++){
+            if(board[row] == col) printf("Q ");
+            else printf("* ");
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+void solve(int row){ // here it reach to final row 
+    if(row == n){
+        printSol();
+        return;
+    }
+    for(int col = 0;col<n;col++){
+        if(safe(row, col)){
+            board[row] = col;
+            solve(row+1);
+        }
+    }
+    
+}
+
+int main(){
+    printf("Enter the no. of queens: ");
+    scanf("%d", &n);
+    solve(0);
+    
+    return 0;
+}
