@@ -1,0 +1,41 @@
+// Program 10: Subset Sum
+// steps : global var : n, set, subset, Main function : take n, set, target, call the helper func backtrack(0, 0), Helper function : 
+backtrack(idx,currSum) then idx == n then currSum == target , then print { and for i = 0->n-1 check subset[i] == 1 then print set[i]  printf } and outside for loop retun;  
+Now subset[idx] = 1 then backtrack(idx + 1, currSum + set[idx]) , subset[idx] = 0 then backtrack(idx + 1, set[idx])
+
+
+#include<stdio.h>
+
+int n, target;
+int set[20], subset[20];
+
+void backtrack(int idx, int currSum){
+    if(idx == n){
+        if(currSum == target){
+            printf("{ ");
+            for(int i = 0;i<n;i++){
+                if(subset[i] == 1) printf("%d ", set[i]);
+            }
+            printf("}\n");
+        }
+        return;
+    }
+    subset[idx] = 1;
+    backtrack(idx+1, currSum+set[idx]);
+    subset[idx] = 0;
+    backtrack(idx+1, currSum);
+}
+
+int main(){
+    printf("Enter the no. of elements: ");
+    scanf("%d", &n);
+    
+    printf("Enter the set elements:\n");
+    for(int i = 0;i<n;i++)
+    scanf("%d", &set[i]);
+    
+    printf("Enter the target sum: ");
+    scanf("%d",&target);
+    printf("Subsets with sum %d\n", target);
+    backtrack(0, 0);
+}
