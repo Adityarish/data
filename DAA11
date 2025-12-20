@@ -1,0 +1,26 @@
+// Program 11 : KnapSack Algorithm
+// Helper: max func , Main function : take n, m, profit i = 1->n, weight i=1->n, matrix to track the cost, for i= 0->n and w = 0->m if i ==0 or w ==0 then k[i][w] = 0 else if (wt[i] < w) take maxi else k[i][w] = k[i-1][w] 
+#include<stdio.h>
+int max(int a, int b){
+    return a > b ? a : b;
+}
+
+int main(){
+    int n = 4, m = 5;
+    int p[10], wt[10], k[10][10];
+    printf("Enter the profits: \n");
+    for(int i = 1;i<=n;i++) scanf("%d",&p[i]);
+    printf("Enter the weights: \n");
+    for(int i = 1;i<=n;i++) scanf("%d",&wt[i]);
+    
+    for(int i = 0;i<=n;i++){
+        for(int w = 0;w<=m;w++){
+            if(i == 0 || w == 0) k[i][w] = 0;
+            else if(wt[i] <= w){
+                k[i][w] = max(p[i]+k[i-1][w-wt[i]], k[i-1][w]);
+            }else k[i][w] = k[i-1][w];
+        }
+    }
+    printf("%d", k[n][m]);
+    return 0;
+}
